@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Duta Wibisono - UTS Praktikum SIGWEB</title>
+    <link rel="icon" type="image/x-icon" href="UGM.png" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+  	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+	
+	<!-- memanggil bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+	
+	<script src="./bundle.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="./Leaflet.GraphicScale.min.css">
+	
+	<script src="./Leaflet.GraphicScale.min.js"></script>
+    <style>
+        #map {
+            height: calc(100vh - 60px);
+        }
+        .responsive {
+  width: 100%;
+  height: auto;
+}
+    </style>    
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <a class="navbar-brand">Peta Tempat Favorit di UGM</a>
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                <li class="nav-item active"><a class="nav-link" href="indexuts.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <button 
+                class="btn btn-outline-success my-2 my-sm-0" 
+                onclick="cari()"
+                >
+                   Lokasi saya
+              </button>
+            </form>
+</nav>
+    <div id = "map"></div>
+    <script src="jogja.js"></script>
+    <script>
+    var map = L.map('map',{         
+        center: [-7.769378, 110.378257],         
+        zoom: 15 
+        });
+	var esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+	}).addTo(map);
+	
+	var carto = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	subdomains: 'abcd',
+	maxZoom: 19
+	});
+
+    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution :'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);    
+	
+	
+	var geodesi = L.marker([-7.763883082570722, 110.37257246480183]).bindPopup('<div><img src="asetgambar/geodesi.jpeg" alt="Nature" class="responsive" width="800" height="600"> <p>Teknik Geodesi UGM</p> <a href="https://maps.app.goo.gl/5tXbGdFb7xUaSphY7">Link Maps Teknik Geodesi UGM</a></div>'),
+		gsp    = L.marker([-7.769903233035359, 110.37784425514221]).bindPopup('<div><img src="asetgambar/gsp.jpg" alt="Nature" class="responsive" width="800" height="600"> <p>Grha Sabha Pramana UGM</p> <a href="https://maps.app.goo.gl/bffU9z3Vm3ihpKzB9/">Link Maps Grha Sabha Pramana UGM</a></div>')
+		wisdom    = L.marker([-7.7701591968736174, 110.38218583310007]).bindPopup('<div><img src="asetgambar/wisdompark.jpeg" alt="Nature" class="responsive" width="800" height="600"> <p> Wisdom Park UGM</p> <a href="https://maps.app.goo.gl/jmTH1JUawVSvkUZm8">Link Maps Wisdom Park UGM</a></div>')
+    pancas    = L.marker([-7.769125657627492, 110.3847185485736]).bindPopup('<div><img src="asetgambar/stadionpancas.jpeg" alt="Nature" class="responsive" width="800" height="600"> <p>Stadion Pancasila UGM</p> <a href="https://maps.app.goo.gl/vx32DhbDoZMgCvBx5">Link Maps Stadion Pancasila UGM</a></div>')
+		sglc    = L.marker([-7.7654475751859735, 110.3722997567345]).bindPopup('<div><img src="asetgambar/sglc.jpg" alt="Nature" class="responsive" width="800" height="600"> <p>Smart Green Learning Centre FT UGM</p> <a href="https://maps.app.goo.gl/2gC28NypjC1eCWeu7">Link Maps Smart Green Learning Centre FT UGM/a></div>')
+	
+	var tempatfavorite = L.layerGroup([geodesi, gsp, wisdom, pancas, sglc]);
+	
+	
+	var baseMaps = {
+		"Citra Satelit": esri,
+		"Peta Carto": carto,
+        "OSM" : osm
+	};
+	
+	var overlayMaps = {
+		"tempatfavorite": tempatfavorite
+	};
+	
+	L.control.layers(baseMaps, overlayMaps).addTo(map);
+	
+	
+	L.Control.geocoder().addTo(map);
+	
+	L.easyPrint({
+		title: 'Cetak',
+		position: 'topright',
+		sizeModes: ['A4Portrait', 'A4Landscape']
+	}).addTo(map);
+	
+	
+	var graphicScale = L.control.graphicScale({
+		fill: "fill",
+		doubleLine: "true",
+		showSubunits: "true"
+	}).addTo(map);
+	function cari(){
+		alert('Harap nyalakan GPS!');
+		map.locate({setView: true, maxZoom: 16});
+		
+		function onLocationFound(e) {
+			var radius = e.accuracy / 2;
+
+			L.marker(e.latlng).addTo(map)
+				.bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+			L.circle(e.latlng, radius).addTo(map);
+		}
+
+		map.on('locationfound', onLocationFound);
+    }    
+
+    </script>
+</body>
+</html>
